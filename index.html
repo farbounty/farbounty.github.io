@@ -4,11 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bounty</title>
+  
   <!-- Farcaster Frame Meta Tags -->
-<meta property="fc:frame" content="vNext" />
-<meta property="fc:frame:image" content="https://farbounty.github.io/your-repo/banner-frame.png" />
-<meta property="fc:frame:post_url" content="https://farbounty.github.io/" />
-<meta property="fc:frame:button:1" content="Connect Wallet & Donate" />
+  <meta property="fc:frame" content="vNext" />
+  <meta property="fc:frame:image" content="https://farbounty.github.io/banner-frame.png" />
+  <meta property="fc:frame:post_url" content="https://farbounty.github.io/" />
+  <meta property="fc:frame:button:1" content="Connect Wallet & Donate" />
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Bounty - Donation Platform" />
+  <meta property="og:description" content="Support Bounty: Community-driven micro-tasks platform" />
+  <meta property="og:image" content="https://farbounty.github.io/banner-frame.png" />
+  <meta property="og:url" content="https://farbounty.github.io/" />
+  <meta property="og:type" content="website" />
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bounty Donation" />
+  <meta name="twitter:description" content="Support Bounty platform development" />
+  <meta name="twitter:image" content="https://farbounty.github.io/banner-frame.png" />
+
   <style>
     body {
       margin: 0;
@@ -194,6 +209,21 @@
       margin-top: 0;
       color: #0369a1;
     }
+    .footer-links {
+      text-align: center;
+      margin: 30px 20px;
+      padding: 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+    .footer-links a {
+      color: #666;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .footer-links a:hover {
+      color: #4f46e5;
+    }
   </style>
 </head>
 <body>
@@ -339,6 +369,15 @@
     </div>
   </div>
 
+  <div class="footer-links">
+    <a href="https://farbounty.github.io/terms.html">Terms of Service</a>
+    <a href="https://farbounty.github.io/privacy.html">Privacy Policy</a>
+    <a href="https://farbounty.github.io/farcaster.json">Farcaster App</a>
+    <div style="margin-top: 10px; font-size: 12px; color: #999;">
+      Bounty Mini App - Built for Farcaster
+    </div>
+  </div>
+
   <script>
     const GOAL = 5; // ETH goal
     let raised = 0;
@@ -350,7 +389,12 @@
       return !!(window.farcaster && window.farcaster.wallet);
     }
 
-    // Connect to Farcaster Wallet
+    // Check if regular Ethereum provider is available (fallback)
+    function isEthereumAvailable() {
+      return !!(window.ethereum);
+    }
+
+    // Connect to Wallet
     async function connectWallet() {
       const connectButton = document.getElementById('connectButton');
       const donateButton = document.getElementById('donateButton');
@@ -358,8 +402,18 @@
       const walletInfo = document.getElementById('walletInfo');
       const walletAddress = document.getElementById('walletAddress');
 
-      if (!isFarcasterWalletAvailable()) {
-        showStatus('Farcaster wallet is not available. Please open this in Farcaster app.', 'error');
+      // Try Farcaster wallet first, then fallback to regular Ethereum
+      let walletProvider = null;
+      let walletType = '';
+
+      if (isFarcasterWalletAvailable()) {
+        walletProvider = window.farcaster.wallet;
+        walletType = 'farcaster';
+      } else if (isEthereumAvailable()) {
+        walletProvider = window.ethereum;
+        walletType = 'ethereum';
+      } else {
+        showStatus('No wallet detected. Please use Farcaster app or install MetaMask.', 'error');
         return;
       }
 
@@ -369,7 +423,7 @@
         connectButton.textContent = 'Connecting...';
 
         // Request account access
-        const accounts = await window.farcaster.wallet.request({
+        const accounts = await walletProvider.request({
           method: 'eth_requestAccounts'
         });
 
@@ -387,7 +441,7 @@
           amountInput.disabled = false;
           donateButton.disabled = false;
           
-          showStatus('Wallet connected successfully!', 'success');
+          showStatus(`${walletType === 'farcaster' ? 'Farcaster' : 'Ethereum'} wallet connected successfully!`, 'success');
         } else {
           throw new Error('No accounts found');
         }
@@ -395,7 +449,7 @@
         console.error('Wallet connection error:', error);
         showStatus('Failed to connect wallet: ' + error.message, 'error');
         connectButton.disabled = false;
-        connectButton.textContent = 'Connect Farcaster Wallet';
+        connectButton.textContent = 'Connect Wallet';
       }
     }
 
@@ -415,6 +469,9 @@
         return;
       }
 
+      // Determine wallet provider
+      const walletProvider = isFarcasterWalletAvailable() ? window.farcaster.wallet : window.ethereum;
+
       try {
         showStatus('Processing donation...', 'info');
         donateButton.disabled = true;
@@ -423,12 +480,25 @@
         // Convert ETH to Wei
         const valueWei = BigInt(Math.floor(parseFloat(amount) * 1e18)).toString();
 
-        // Send transaction
-        const tx = await window.farcaster.wallet.sendTransaction({
-          to: donationAddress,
-          value: valueWei,
-          from: connectedAccount
-        });
+        let tx;
+        if (isFarcasterWalletAvailable()) {
+          // Farcaster wallet
+          tx = await walletProvider.sendTransaction({
+            to: donationAddress,
+            value: valueWei,
+            from: connectedAccount
+          });
+        } else {
+          // Regular Ethereum wallet
+          tx = await walletProvider.request({
+            method: 'eth_sendTransaction',
+            params: [{
+              to: donationAddress,
+              from: connectedAccount,
+              value: valueWei,
+            }]
+          });
+        }
 
         if (tx?.hash) {
           // Update progress
@@ -440,7 +510,7 @@
           
           // Reset form
           amountInput.value = '';
-          donateButton.disabled = false;
+          donateButton.disabled = true;
           donateButton.textContent = 'Donate via Wallet';
         } else {
           throw new Error('Transaction failed or was cancelled');
@@ -477,7 +547,7 @@
       }
     }
 
-    // Initialize - check if wallet is already connected
+    // Initialize
     document.addEventListener('DOMContentLoaded', function() {
       const amountInput = document.getElementById('amount');
       const donateButton = document.getElementById('donateButton');
@@ -491,9 +561,9 @@
         }
       });
 
-      // Check if we're in Farcaster environment
-      if (!isFarcasterWalletAvailable()) {
-        showStatus('Please open this app in Farcaster to connect your wallet', 'info');
+      // Show appropriate message based on environment
+      if (!isFarcasterWalletAvailable() && !isEthereumAvailable()) {
+        showStatus('Please open this in Farcaster app or install MetaMask to connect your wallet', 'info');
       }
     });
   </script>
