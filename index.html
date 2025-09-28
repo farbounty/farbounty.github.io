@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bounty</title>
+  <title>Bounty Donation MiniApp</title>
   <style>
     body {
       margin: 0;
@@ -84,6 +84,7 @@
       font-weight: bold;
       font-size: 16px;
       transition: background 0.3s;
+      margin: 5px;
     }
     .donation-section button:hover {
       background: #4338ca;
@@ -91,6 +92,12 @@
     .donation-section button:disabled {
       background: #9ca3af;
       cursor: not-allowed;
+    }
+    .donation-section button.connected {
+      background: #10b981;
+    }
+    .donation-section button.connected:hover {
+      background: #059669;
     }
     .progress {
       margin-top: 15px;
@@ -122,6 +129,11 @@
       color: #991b1b;
       border: 1px solid #fecaca;
     }
+    .status-info {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+    }
     .farcaster-badge {
       display: flex;
       align-items: center;
@@ -139,6 +151,13 @@
       margin-right: 5px;
       background: #8a63d2;
       border-radius: 3px;
+    }
+    .wallet-info {
+      background: #f0f9ff;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-size: 14px;
     }
     .budget-options {
       margin-top: 20px;
@@ -292,12 +311,23 @@
   <div class="donation-section">
     <h2>Make a Donation</h2>
     <p>Goal: <strong>5 ETH</strong> | Raised: <strong id="raised">0 ETH</strong></p>
-    <input type="number" id="amount" placeholder="Amount (ETH)" min="0" step="0.01" />
+    
+    <div id="walletInfo" class="wallet-info" style="display: none;">
+      <strong>Wallet Connected:</strong> <span id="walletAddress"></span>
+    </div>
+    
+    <input type="number" id="amount" placeholder="Amount (ETH)" min="0" step="0.01" disabled />
     <br />
-    <button onclick="donate()">Donate via Wallet</button>
+    
+    <button id="connectButton" onclick="connectWallet()">Connect Farcaster Wallet</button>
+    <button id="donateButton" onclick="donate()" disabled>Donate via Wallet</button>
+    
     <div class="progress">
       <div class="progress-bar" id="progress-bar"></div>
     </div>
+    
+    <div id="statusMessage" class="status-message" style="display: none;"></div>
+    
     <div class="farcaster-badge">
       <div class="farcaster-icon"></div>
       <span>Farcaster Mini App & Frame Compatible</span>
@@ -308,37 +338,159 @@
     const GOAL = 5; // ETH goal
     let raised = 0;
     const donationAddress = "0x3d393197C4F49352e240fF718927080C02a8e1b1"; // Receiving address
+    let connectedAccount = null;
 
-    async function donate() {
-      const amount = document.getElementById('amount').value;
-      if (!amount || amount <= 0) {
-        alert('Enter a valid donation amount');
+    // Check if Farcaster wallet is available
+    function isFarcasterWalletAvailable() {
+      return !!(window.farcaster && window.farcaster.wallet);
+    }
+
+    // Connect to Farcaster Wallet
+    async function connectWallet() {
+      const connectButton = document.getElementById('connectButton');
+      const donateButton = document.getElementById('donateButton');
+      const amountInput = document.getElementById('amount');
+      const walletInfo = document.getElementById('walletInfo');
+      const walletAddress = document.getElementById('walletAddress');
+
+      if (!isFarcasterWalletAvailable()) {
+        showStatus('Farcaster wallet is not available. Please open this in Farcaster app.', 'error');
         return;
       }
 
       try {
+        showStatus('Connecting to wallet...', 'info');
+        connectButton.disabled = true;
+        connectButton.textContent = 'Connecting...';
+
+        // Request account access
+        const accounts = await window.farcaster.wallet.request({
+          method: 'eth_requestAccounts'
+        });
+
+        if (accounts && accounts.length > 0) {
+          connectedAccount = accounts[0];
+          
+          // Update UI
+          walletAddress.textContent = `${connectedAccount.substring(0, 6)}...${connectedAccount.substring(38)}`;
+          walletInfo.style.display = 'block';
+          connectButton.textContent = 'Connected ✓';
+          connectButton.classList.add('connected');
+          connectButton.disabled = true;
+          
+          // Enable donation inputs
+          amountInput.disabled = false;
+          donateButton.disabled = false;
+          
+          showStatus('Wallet connected successfully!', 'success');
+        } else {
+          throw new Error('No accounts found');
+        }
+      } catch (error) {
+        console.error('Wallet connection error:', error);
+        showStatus('Failed to connect wallet: ' + error.message, 'error');
+        connectButton.disabled = false;
+        connectButton.textContent = 'Connect Farcaster Wallet';
+      }
+    }
+
+    // Donate function
+    async function donate() {
+      const amountInput = document.getElementById('amount');
+      const donateButton = document.getElementById('donateButton');
+      const amount = amountInput.value;
+
+      if (!connectedAccount) {
+        showStatus('Please connect your wallet first', 'error');
+        return;
+      }
+
+      if (!amount || amount <= 0) {
+        showStatus('Please enter a valid donation amount', 'error');
+        return;
+      }
+
+      try {
+        showStatus('Processing donation...', 'info');
+        donateButton.disabled = true;
+        donateButton.textContent = 'Processing...';
+
         // Convert ETH to Wei
         const valueWei = BigInt(Math.floor(parseFloat(amount) * 1e18)).toString();
 
-        // Send transaction request to Farcaster Wallet
-        const tx = await window.farcaster?.wallet?.sendTransaction({
+        // Send transaction
+        const tx = await window.farcaster.wallet.sendTransaction({
           to: donationAddress,
           value: valueWei,
+          from: connectedAccount
         });
 
         if (tx?.hash) {
+          // Update progress
           raised += parseFloat(amount);
           document.getElementById('raised').innerText = raised.toFixed(2) + ' ETH';
           document.getElementById('progress-bar').style.width = (raised / GOAL * 100) + '%';
-          alert('Donation successful! TX Hash: ' + tx.hash);
+          
+          showStatus(`Donation successful! Transaction Hash: ${tx.hash}`, 'success');
+          
+          // Reset form
+          amountInput.value = '';
+          donateButton.disabled = false;
+          donateButton.textContent = 'Donate via Wallet';
         } else {
-          alert('Transaction failed or cancelled.');
+          throw new Error('Transaction failed or was cancelled');
         }
-      } catch (err) {
-        console.error(err);
-        alert('Donation failed: ' + err.message);
+      } catch (error) {
+        console.error('Donation error:', error);
+        showStatus('Donation failed: ' + error.message, 'error');
+        donateButton.disabled = false;
+        donateButton.textContent = 'Donate via Wallet';
       }
     }
+
+    // Show status messages
+    function showStatus(message, type) {
+      const statusMessage = document.getElementById('statusMessage');
+      statusMessage.textContent = message;
+      statusMessage.className = 'status-message';
+      
+      if (type === 'success') {
+        statusMessage.classList.add('status-success');
+      } else if (type === 'error') {
+        statusMessage.classList.add('status-error');
+      } else if (type === 'info') {
+        statusMessage.classList.add('status-info');
+      }
+      
+      statusMessage.style.display = 'block';
+      
+      // Auto-hide success messages after 8 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          statusMessage.style.display = 'none';
+        }, 8000);
+      }
+    }
+
+    // Initialize - check if wallet is already connected
+    document.addEventListener('DOMContentLoaded', function() {
+      const amountInput = document.getElementById('amount');
+      const donateButton = document.getElementById('donateButton');
+      
+      // Enable/disable donate button based on input
+      amountInput.addEventListener('input', function() {
+        if (connectedAccount && amountInput.value && amountInput.value > 0) {
+          donateButton.disabled = false;
+        } else {
+          donateButton.disabled = true;
+        }
+      });
+
+      // Check if we're in Farcaster environment
+      if (!isFarcasterWalletAvailable()) {
+        showStatus('Please open this app in Farcaster to connect your wallet', 'info');
+      }
+    });
   </script>
 </body>
 </html>
