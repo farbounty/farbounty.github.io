@@ -7,8 +7,8 @@
     "backgroundColor": "#f9fafb"
   },
   "url": "https://farbounty.github.io/",
-  "termsOfService": "https://your-username.github.io/your-repo/terms.html",
-  "privacyPolicy": "https://your-username.github.io/your-repo/privacy.html",
+  "termsOfService": "https://farbounty.github.io/terms.html",
+  "privacyPolicy": "https://farbounty.github.io/privacy.html",
   "permissions": [
     "storage",
     "wallet"
