@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bounty</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9fafb;
+      color: #333;
+    }
+    .banner {
+      position: relative;
+      background: url('https://iili.io/KEBHiIp.jpg') no-repeat center/cover;
+      height: 200px;
+    }
+    .profile {
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      transform: translateY(-40%);
+    }
+    .logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+      background: #fff;
+    }
+    .project-info {
+      margin-left: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .project-info h1 {
+      margin: 5px 0 0 0;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    .verified-img {
+      margin-left: 8px;
+      width: 20px;
+      height: 20px;
+    }
+    .about {
+      background: white;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .about h2 {
+      margin-top: 0;
+    }
+    .donation-section {
+      background: white;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .donation-section input {
+      padding: 12px;
+      width: 180px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 16px;
+    }
+    .donation-section button {
+      padding: 12px 24px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    .donation-section button:hover {
+      background: #4338ca;
+    }
+    .donation-section button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+    .progress {
+      margin-top: 15px;
+      background: #e5e7eb;
+      border-radius: 6px;
+      height: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-bar {
+      background: #4f46e5;
+      height: 100%;
+      width: 0;
+      transition: width 0.3s;
+    }
+    .status-message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .status-success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+    .status-error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    .farcaster-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      padding: 8px 12px;
+      background: #f3f4f6;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #666;
+    }
+    .farcaster-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+      background: #8a63d2;
+      border-radius: 3px;
+    }
+    .budget-options {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .budget-option {
+      background: #f8f9fa;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border-left: 4px solid #4f46e5;
+    }
+    .budget-option h4 {
+      margin: 0 0 8px 0;
+      color: #4f46e5;
+    }
+    .budget-option ul {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    .impact-examples {
+      background: #f0f9ff;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 1px solid #e0f2fe;
+    }
+    .impact-examples h4 {
+      margin-top: 0;
+      color: #0369a1;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner"></div>
+  <div class="profile">
+    <img src="https://iili.io/KEBH4kv.png" class="logo" alt="Project Logo" />
+    <div class="project-info">
+      <h1>Bounty <img src="https://iili.io/KEBHrYJ.png" class="verified-img" alt="Verified" /></h1>
+    </div>
+  </div>
+
+  <div class="about">
+    <h2>About Bounty</h2>
+    <p><strong>Bounty is an open, community-driven platform that lets people find and complete micro-tasks (bounties) and get paid in crypto.</strong> I'm building the UI/UX, frontend and backend myself to keep costs low and shipping fast — but I need your support to cover non-development essentials (hosting, security, audits, rewards, integrations, and community ops).</p>
+    
+    <p><strong>Your donation = real, immediate impact:</strong> safer payments, faster launch, and money in the hands of contributors.</p>
+
+    <h3>What we will build (MVP)</h3>
+    <ul>
+      <li>Web platform + responsive UI where projects post bounties and users submit work</li>
+      <li>Farcaster Mini-App integration so people can open Bounty directly inside Farcaster</li>
+      <li>Admin dashboard for moderation, dispute handling, and payout management</li>
+      <li>Secure payment flow: escrow / payout logic (off-chain or simple smart contract depending on funds)</li>
+      <li>Community channels (Discord) + initial moderation tools</li>
+    </ul>
+
+    <p><em>Because I (the founder) will do UI/UX, frontend and backend myself, donated funds are used only for what I cannot do alone.</em></p>
+
+    <h3>Why we need funding</h3>
+    <p>Your donation covers the non-coding essentials that make Bounty reliable, secure, and sustainable:</p>
+    <ul>
+      <li>Hosting, database, backups, CDN — for uptime and performance</li>
+      <li>Farcaster app publishing & small integration tasks</li>
+      <li>Security review / audit (critical when real funds & bounties are involved)</li>
+      <li>Initial bounty reward pool (so contributors get paid from day one)</li>
+      <li>DevOps support, monitoring, automated backups</li>
+      <li>Moderation & community ops (bots, basic moderation tools, incentives)</li>
+      <li>Marketing & outreach to bring projects and contributors to the platform</li>
+      <li>Legal / compliance buffer and miscellaneous expenses</li>
+    </ul>
+
+    <div class="budget-options">
+      <h3>Clear budget options (how funds will be used)</h3>
+      
+      <div class="budget-option">
+        <h4>Minimum MVP goal — $2,800 (launch a safe, working MVP)</h4>
+        <ul>
+          <li>Hosting & infra (1 year): $360</li>
+          <li>Domain, email, monitoring: $120</li>
+          <li>Mini-App & Farcaster publishing help: $400</li>
+          <li>Security review / light audit: $800</li>
+          <li>Initial bounty reward pool: $600</li>
+          <li>QA & moderation tools: $200</li>
+          <li>Community & marketing: $200</li>
+          <li>Contingency / misc: $120</li>
+        </ul>
+        <strong>Total = $2,800</strong>
+      </div>
+
+      <div class="budget-option">
+        <h4>Recommended (scale safely) — $6,000</h4>
+        <ul>
+          <li>Hosting & scaling (1 year): $1,200</li>
+          <li>Smart contract / integration dev: $1,200</li>
+          <li>Professional security audit: $1,800</li>
+          <li>Bounty reward pool: $800</li>
+          <li>Marketing & community growth: $500</li>
+          <li>DevOps / CI support: $300</li>
+          <li>Legal / contingency: $200</li>
+        </ul>
+        <strong>Total = $6,000</strong>
+      </div>
+
+      <div class="budget-option">
+        <h4>Stretch / Production-ready — $12,000</h4>
+        <ul>
+          <li>Production hosting + CDN + monitoring: $2,400</li>
+          <li>Multi-chain / smart contract work: $2,000</li>
+          <li>Full security audit + penetration test: $3,000</li>
+          <li>Bounty pool (larger initial funds): $2,000</li>
+          <li>Marketing, partnerships, PR: $1,000</li>
+          <li>Professional DevOps & community ops: $1,100</li>
+          <li>Legal & compliance reserve: $500</li>
+        </ul>
+        <strong>Total = $12,000</strong>
+      </div>
+    </div>
+
+    <div class="impact-examples">
+      <h4>What your donation accomplishes (examples)</h4>
+      <ul>
+        <li><strong>$25</strong> → helps pay for domain, email & monitoring (keeps the site official)</li>
+        <li><strong>$100</strong> → covers ~1–3 months of cloud hosting for the site</li>
+        <li><strong>$250</strong> → contributes to a bounty reward paid to a real contributor</li>
+        <li><strong>$1,000</strong> → pays for a strong security review or significantly seeds the bounty pool</li>
+      </ul>
+      <p><em>(Contributions are pooled to maximize impact; every dollar moves us closer to a trusted launch.)</em></p>
+    </div>
+
+    <h3>Benefits for donors & big admins</h3>
+    <ul>
+      <li>Early access to the admin dashboard and priority support</li>
+      <li>Sponsor recognition on the landing page (logo + link) for larger sponsors</li>
+      <li>Co-branding / custom bounty programs for organizations or DAOs</li>
+      <li>Regular transparency reports: monthly update + receipts of how funds were spent</li>
+      <li>Ability to suggest features and priority requests for the roadmap</li>
+    </ul>
+
+    <h3>Timeline & transparency</h3>
+    <p>If we reach the MVP goal ($2.8k): I will launch a working MVP with Farcaster Mini-App support in ~6–10 weeks, open the first 10 bounties, and start paying contributors.</p>
+    <p>I will publish a public ledger and monthly updates showing spending, outcomes, and bounties funded.</p>
+    <p>For major sponsors: we'll schedule a short call to align expectations and offer bespoke recognition.</p>
+
+    <h3>Why this matters</h3>
+    <p>Bounty empowers builders and contributors to earn fairly and transparently. By funding infrastructure, security and the rewards pool, you enable real people (creators, testers, designers) to be paid for real work — and you help grow healthier open ecosystems on Farcaster and web3.</p>
+    
+    <p><strong>Thank you — every contribution helps. 🙏</strong></p>
+  </div>
+
+  <div class="donation-section">
+    <h2>Make a Donation</h2>
+    <p>Goal: <strong>5 ETH</strong> | Raised: <strong id="raised">0 ETH</strong></p>
+    <input type="number" id="amount" placeholder="Amount (ETH)" min="0" step="0.01" />
+    <br />
+    <button onclick="donate()">Donate via Wallet</button>
+    <div class="progress">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="farcaster-badge">
+      <div class="farcaster-icon"></div>
+      <span>Farcaster Mini App & Frame Compatible</span>
+    </div>
+  </div>
+
+  <script>
+    const GOAL = 5; // ETH goal
+    let raised = 0;
+    const donationAddress = "0x3d393197C4F49352e240fF718927080C02a8e1b1"; // Receiving address
+
+    async function donate() {
+      const amount = document.getElementById('amount').value;
+      if (!amount || amount <= 0) {
+        alert('Enter a valid donation amount');
+        return;
+      }
+
+      try {
+        // Convert ETH to Wei
+        const valueWei = BigInt(Math.floor(parseFloat(amount) * 1e18)).toString();
+
+        // Send transaction request to Farcaster Wallet
+        const tx = await window.farcaster?.wallet?.sendTransaction({
+          to: donationAddress,
+          value: valueWei,
+        });
+
+        if (tx?.hash) {
+          raised += parseFloat(amount);
+          document.getElementById('raised').innerText = raised.toFixed(2) + ' ETH';
+          document.getElementById('progress-bar').style.width = (raised / GOAL * 100) + '%';
+          alert('Donation successful! TX Hash: ' + tx.hash);
+        } else {
+          alert('Transaction failed or cancelled.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Donation failed: ' + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
