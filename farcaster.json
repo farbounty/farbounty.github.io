@@ -1,1 +1,16 @@
-
+{
+  "name": "Bounty",
+  "description": "Support Bounty platform development",
+  "icon": "https://farbounty.github.io/Logo.png",
+  "splash": {
+    "image": "https://farbounty.github.io/banner-frame.png",
+    "backgroundColor": "#f9fafb"
+  },
+  "url": "https://farbounty.github.io/",
+  "termsOfService": "https://your-username.github.io/your-repo/terms.html",
+  "privacyPolicy": "https://your-username.github.io/your-repo/privacy.html",
+  "permissions": [
+    "storage",
+    "wallet"
+  ]
+}
