@@ -3,569 +3,467 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bounty</title>
-  
-  <!-- Farcaster Frame Meta Tags -->
-  <meta property="fc:frame" content="vNext" />
-  <meta property="fc:frame:image" content="https://farbounty.github.io/banner-frame.png" />
-  <meta property="fc:frame:post_url" content="https://farbounty.github.io/" />
-  <meta property="fc:frame:button:1" content="Connect Wallet & Donate" />
-  
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Bounty - Donation Platform" />
-  <meta property="og:description" content="Support Bounty: Community-driven micro-tasks platform" />
-  <meta property="og:image" content="https://farbounty.github.io/banner-frame.png" />
-  <meta property="og:url" content="https://farbounty.github.io/" />
-  <meta property="og:type" content="website" />
-  
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Bounty Donation" />
-  <meta name="twitter:description" content="Support Bounty platform development" />
-  <meta name="twitter:image" content="https://farbounty.github.io/banner-frame.png" />
-
+  <title>NFT Project Pitch Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f9fafb;
-      color: #333;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+      overflow-x: hidden;
     }
-    .banner {
-      position: relative;
-      background: url('https://iili.io/KEBHiIp.jpg') no-repeat center/cover;
-      height: 200px;
+    
+    .slide {
+      display: none;
+      animation: fadeIn 0.8s ease-in-out;
     }
-    .profile {
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      transform: translateY(-40%);
+    
+    .active {
+      display: block;
     }
-    .logo {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 3px solid white;
-      object-fit: cover;
-      background: #fff;
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .project-info {
-      margin-left: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .project-info h1 {
-      margin: 5px 0 0 0;
-      font-size: 1.5rem;
-      display: flex;
-      align-items: center;
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .verified-img {
-      margin-left: 8px;
-      width: 20px;
-      height: 20px;
-    }
-    .about {
-      background: white;
-      padding: 20px;
-      margin: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .about h2 {
-      margin-top: 0;
-    }
-    .donation-section {
-      background: white;
-      padding: 20px;
-      margin: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .donation-section input {
-      padding: 12px;
-      width: 180px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      margin-bottom: 15px;
-      text-align: center;
-      font-size: 16px;
-    }
-    .donation-section button {
-      padding: 12px 24px;
-      background: #4f46e5;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 16px;
-      transition: background 0.3s;
-      margin: 5px;
-    }
-    .donation-section button:hover {
-      background: #4338ca;
-    }
-    .donation-section button:disabled {
-      background: #9ca3af;
-      cursor: not-allowed;
-    }
-    .donation-section button.connected {
-      background: #10b981;
-    }
-    .donation-section button.connected:hover {
-      background: #059669;
-    }
-    .progress {
-      margin-top: 15px;
-      background: #e5e7eb;
-      border-radius: 6px;
-      height: 20px;
+    
+    .nav-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
+    
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    .nav-btn:active {
+      transform: translateY(0);
+    }
+    
     .progress-bar {
-      background: #4f46e5;
-      height: 100%;
-      width: 0;
-      transition: width 0.3s;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: width 0.5s ease;
     }
-    .status-message {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 14px;
+    
+    .feature-card {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .status-success {
-      background: #dcfce7;
-      color: #166534;
-      border: 1px solid #bbf7d0;
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: #667eea;
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
     }
-    .status-error {
-      background: #fee2e2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
+    
+    .pulse-animation {
+      animation: pulse 2s infinite;
     }
-    .status-info {
-      background: #dbeafe;
-      color: #1e40af;
-      border: 1px solid #93c5fd;
-    }
-    .farcaster-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 15px;
-      padding: 8px 12px;
-      background: #f3f4f6;
-      border-radius: 6px;
-      font-size: 12px;
-      color: #666;
-    }
-    .farcaster-icon {
-      width: 16px;
-      height: 16px;
-      margin-right: 5px;
-      background: #8a63d2;
-      border-radius: 3px;
-    }
-    .wallet-info {
-      background: #f0f9ff;
-      padding: 10px;
-      border-radius: 6px;
-      margin: 10px 0;
-      font-size: 14px;
-    }
-    .budget-options {
-      margin-top: 20px;
-      text-align: left;
-    }
-    .budget-option {
-      background: #f8f9fa;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border-left: 4px solid #4f46e5;
-    }
-    .budget-option h4 {
-      margin: 0 0 8px 0;
-      color: #4f46e5;
-    }
-    .budget-option ul {
-      margin: 8px 0;
-      padding-left: 20px;
-    }
-    .impact-examples {
-      background: #f0f9ff;
-      padding: 15px;
-      margin: 15px 0;
-      border-radius: 8px;
-      border: 1px solid #e0f2fe;
-    }
-    .impact-examples h4 {
-      margin-top: 0;
-      color: #0369a1;
-    }
-    .footer-links {
-      text-align: center;
-      margin: 30px 20px;
-      padding: 20px;
-      border-top: 1px solid #e5e7eb;
-    }
-    .footer-links a {
-      color: #666;
-      margin: 0 15px;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    .footer-links a:hover {
-      color: #4f46e5;
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
-<body>
-  <div class="banner"></div>
-  <div class="profile">
-    <img src="https://iili.io/KEBH4kv.png" class="logo" alt="Project Logo" />
-    <div class="project-info">
-      <h1>Bounty <img src="https://iili.io/KEBHrYJ.png" class="verified-img" alt="Verified" /></h1>
+<body class="text-white flex flex-col items-center justify-center min-h-screen p-4">
+
+  <!-- Progress Bar -->
+  <div class="w-full max-w-4xl mb-8">
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-sm text-gray-400">Slide <span id="current-slide">1</span> of <span id="total-slides">7</span></span>
+      <span class="text-sm text-gray-400" id="slide-title">Introduction</span>
+    </div>
+    <div class="w-full bg-gray-800 rounded-full h-2">
+      <div id="progress-bar" class="progress-bar rounded-full" style="width: 14.28%"></div>
     </div>
   </div>
 
-  <div class="about">
-    <h2>About Bounty</h2>
-    <p><strong>Bounty is an open, community-driven platform that lets people find and complete micro-tasks (bounties) and get paid in crypto.</strong> I'm building the UI/UX, frontend and backend myself to keep costs low and shipping fast — but I need your support to cover non-development essentials (hosting, security, audits, rewards, integrations, and community ops).</p>
-    
-    <p><strong>Your donation = real, immediate impact:</strong> safer payments, faster launch, and money in the hands of contributors.</p>
+  <!-- Slides Container -->
+  <div id="slides" class="w-full max-w-4xl">
 
-    <h3>What we will build (MVP)</h3>
-    <ul>
-      <li>Web platform + responsive UI where projects post bounties and users submit work</li>
-      <li>Farcaster Mini-App integration so people can open Bounty directly inside Farcaster</li>
-      <li>Admin dashboard for moderation, dispute handling, and payout management</li>
-      <li>Secure payment flow: escrow / payout logic (off-chain or simple smart contract depending on funds)</li>
-      <li>Community channels (Discord) + initial moderation tools</li>
-    </ul>
-
-    <p><em>Because I (the founder) will do UI/UX, frontend and backend myself, donated funds are used only for what I cannot do alone.</em></p>
-
-    <h3>Why we need funding</h3>
-    <p>Your donation covers the non-coding essentials that make Bounty reliable, secure, and sustainable:</p>
-    <ul>
-      <li>Hosting, database, backups, CDN — for uptime and performance</li>
-      <li>Farcaster app publishing & small integration tasks</li>
-      <li>Security review / audit (critical when real funds & bounties are involved)</li>
-      <li>Initial bounty reward pool (so contributors get paid from day one)</li>
-      <li>DevOps support, monitoring, automated backups</li>
-      <li>Moderation & community ops (bots, basic moderation tools, incentives)</li>
-      <li>Marketing & outreach to bring projects and contributors to the platform</li>
-      <li>Legal / compliance buffer and miscellaneous expenses</li>
-    </ul>
-
-    <div class="budget-options">
-      <h3>Clear budget options (how funds will be used)</h3>
-      
-      <div class="budget-option">
-        <h4>Minimum MVP goal — $2,800 (launch a safe, working MVP)</h4>
-        <ul>
-          <li>Hosting & infra (1 year): $360</li>
-          <li>Domain, email, monitoring: $120</li>
-          <li>Mini-App & Farcaster publishing help: $400</li>
-          <li>Security review / light audit: $800</li>
-          <li>Initial bounty reward pool: $600</li>
-          <li>QA & moderation tools: $200</li>
-          <li>Community & marketing: $200</li>
-          <li>Contingency / misc: $120</li>
-        </ul>
-        <strong>Total = $2,800</strong>
-      </div>
-
-      <div class="budget-option">
-        <h4>Recommended (scale safely) — $6,000</h4>
-        <ul>
-          <li>Hosting & scaling (1 year): $1,200</li>
-          <li>Smart contract / integration dev: $1,200</li>
-          <li>Professional security audit: $1,800</li>
-          <li>Bounty reward pool: $800</li>
-          <li>Marketing & community growth: $500</li>
-          <li>DevOps / CI support: $300</li>
-          <li>Legal / contingency: $200</li>
-        </ul>
-        <strong>Total = $6,000</strong>
-      </div>
-
-      <div class="budget-option">
-        <h4>Stretch / Production-ready — $12,000</h4>
-        <ul>
-          <li>Production hosting + CDN + monitoring: $2,400</li>
-          <li>Multi-chain / smart contract work: $2,000</li>
-          <li>Full security audit + penetration test: $3,000</li>
-          <li>Bounty pool (larger initial funds): $2,000</li>
-          <li>Marketing, partnerships, PR: $1,000</li>
-          <li>Professional DevOps & community ops: $1,100</li>
-          <li>Legal & compliance reserve: $500</li>
-        </ul>
-        <strong>Total = $12,000</strong>
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <div class="glass-effect rounded-3xl p-8 md:p-12 text-center">
+        <div class="mb-6 pulse-animation">
+          <i class="fas fa-palette text-6xl gradient-text"></i>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">NFT Project Pitch Deck</h1>
+        <div class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+          My name is <span class="text-white font-semibold">Jack</span>, an artist with a dream.<br>
+          I've been in the NFT space since <span class="text-white font-semibold">2018</span>, learning, watching, and growing.<br>
+          Now I'm ready to launch a project for <span class="gradient-text font-semibold">art, culture & community</span>.
+        </div>
+        <div class="flex justify-center space-x-4 mt-8">
+          <div class="feature-card glass-effect rounded-xl p-4 text-center w-32">
+            <i class="fas fa-paint-brush text-2xl mb-2 gradient-text"></i>
+            <p class="text-sm">Art Focused</p>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-4 text-center w-32">
+            <i class="fas fa-users text-2xl mb-2 gradient-text"></i>
+            <p class="text-sm">Community</p>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-4 text-center w-32">
+            <i class="fas fa-chart-line text-2xl mb-2 gradient-text"></i>
+            <p class="text-sm">Growth</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="impact-examples">
-      <h4>What your donation accomplishes (examples)</h4>
-      <ul>
-        <li><strong>$25</strong> → helps pay for domain, email & monitoring (keeps the site official)</li>
-        <li><strong>$100</strong> → covers ~1–3 months of cloud hosting for the site</li>
-        <li><strong>$250</strong> → contributes to a bounty reward paid to a real contributor</li>
-        <li><strong>$1,000</strong> → pays for a strong security review or significantly seeds the bounty pool</li>
-      </ul>
-      <p><em>(Contributions are pooled to maximize impact; every dollar moves us closer to a trusted launch.)</em></p>
+    <!-- Slide 2 -->
+    <div class="slide">
+      <div class="glass-effect rounded-3xl p-8 md:p-12">
+        <div class="text-center mb-8">
+          <i class="fas fa-star text-5xl gradient-text mb-4"></i>
+          <h2 class="text-3xl md:text-5xl font-bold mb-4 gradient-text">The Vision</h2>
+        </div>
+        <div class="text-lg md:text-xl text-gray-300 text-center leading-relaxed">
+          Not just another NFT collection.<br>
+          I aim to create <span class="text-white font-semibold">art that resonates with people's taste & emotions</span> — 
+          built on <span class="text-white font-semibold">trust, community, and shared growth</span>.
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+          <div class="feature-card glass-effect rounded-xl p-6 text-center">
+            <i class="fas fa-heart text-3xl mb-4 gradient-text"></i>
+            <h3 class="text-xl font-semibold mb-2">Emotional Connection</h3>
+            <p class="text-gray-400">Art that speaks to the heart and soul</p>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-6 text-center">
+            <i class="fas fa-shield-alt text-3xl mb-4 gradient-text"></i>
+            <h3 class="text-xl font-semibold mb-2">Trust & Transparency</h3>
+            <p class="text-gray-400">Built on honesty and clear communication</p>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-6 text-center">
+            <i class="fas fa-hands-helping text-3xl mb-4 gradient-text"></i>
+            <h3 class="text-xl font-semibold mb-2">Shared Growth</h3>
+            <p class="text-gray-400">Success for the artist and the community</p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <h3>Benefits for donors & big admins</h3>
-    <ul>
-      <li>Early access to the admin dashboard and priority support</li>
-      <li>Sponsor recognition on the landing page (logo + link) for larger sponsors</li>
-      <li>Co-branding / custom bounty programs for organizations or DAOs</li>
-      <li>Regular transparency reports: monthly update + receipts of how funds were spent</li>
-      <li>Ability to suggest features and priority requests for the roadmap</li>
-    </ul>
+    <!-- Slide 3 -->
+    <div class="slide">
+      <div class="glass-effect rounded-3xl p-8 md:p-12">
+        <div class="text-center mb-8">
+          <i class="fas fa-lightbulb text-5xl gradient-text mb-4"></i>
+          <h2 class="text-3xl md:text-5xl font-bold mb-4 gradient-text">Why This Matters</h2>
+        </div>
+        <div class="text-lg md:text-xl text-gray-300 text-center leading-relaxed mb-10">
+          Many NFT projects lack soul — they focus only on hype.<br>
+          I bring <span class="text-white font-semibold">6+ years of NFT experience</span> and an artist's heart.<br>
+          With your support, this project becomes a <span class="text-white font-semibold">brand, not just a collection</span>.
+        </div>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+          <div class="text-center">
+            <div class="text-5xl font-bold gradient-text mb-2">6+</div>
+            <div class="text-gray-400">Years Experience</div>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl font-bold gradient-text mb-2">100%</div>
+            <div class="text-gray-400">Artist Owned</div>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl font-bold gradient-text mb-2">∞</div>
+            <div class="text-gray-400">Creative Vision</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <h3>Timeline & transparency</h3>
-    <p>If we reach the MVP goal ($2.8k): I will launch a working MVP with Farcaster Mini-App support in ~6–10 weeks, open the first 10 bounties, and start paying contributors.</p>
-    <p>I will publish a public ledger and monthly updates showing spending, outcomes, and bounties funded.</p>
-    <p>For major sponsors: we'll schedule a short call to align expectations and offer bespoke recognition.</p>
+    <!-- Slide 4 -->
+    <div class="slide">
+      <div class="glass-effect rounded-3xl p-8 md:p-12">
+        <div class="text-center mb-8">
+          <i class="fas fa-donate text-5xl gradient-text mb-4"></i>
+          <h2 class="text-3xl md:text-5xl font-bold mb-4 gradient-text">Fundraising Goal</h2>
+        </div>
+        <div class="text-center mb-10">
+          <div class="text-4xl md:text-6xl font-bold gradient-text mb-4">$10,000</div>
+          <p class="text-xl text-gray-300">To bring this project to life</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="feature-card glass-effect rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-palette text-2xl gradient-text mr-4"></i>
+              <h3 class="text-xl font-semibold">Artwork & Design</h3>
+            </div>
+            <div class="w-full bg-gray-800 rounded-full h-3 mb-2">
+              <div class="progress-bar rounded-full h-3" style="width: 40%"></div>
+            </div>
+            <p class="text-gray-400">40% - Creating stunning visual artwork</p>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-code text-2xl gradient-text mr-4"></i>
+              <h3 class="text-xl font-semibold">Smart Contract & Launch</h3>
+            </div>
+            <div class="w-full bg-gray-800 rounded-full h-3 mb-2">
+              <div class="progress-bar rounded-full h-3" style="width: 25%"></div>
+            </div>
+            <p class="text-gray-400">25% - Development and deployment</p>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-bullhorn text-2xl gradient-text mr-4"></i>
+              <h3 class="text-xl font-semibold">Marketing & Community</h3>
+            </div>
+            <div class="w-full bg-gray-800 rounded-full h-3 mb-2">
+              <div class="progress-bar rounded-full h-3" style="width: 25%"></div>
+            </div>
+            <p class="text-gray-400">25% - Building awareness and engagement</p>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-6">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-shield-alt text-2xl gradient-text mr-4"></i>
+              <h3 class="text-xl font-semibold">Security & Backup</h3>
+            </div>
+            <div class="w-full bg-gray-800 rounded-full h-3 mb-2">
+              <div class="progress-bar rounded-full h-3" style="width: 10%"></div>
+            </div>
+            <p class="text-gray-400">10% - Ensuring project safety and longevity</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <h3>Why this matters</h3>
-    <p>Bounty empowers builders and contributors to earn fairly and transparently. By funding infrastructure, security and the rewards pool, you enable real people (creators, testers, designers) to be paid for real work — and you help grow healthier open ecosystems on Farcaster and web3.</p>
-    
-    <p><strong>Thank you — every contribution helps. 🙏</strong></p>
+    <!-- Slide 5 -->
+    <div class="slide">
+      <div class="glass-effect rounded-3xl p-8 md:p-12">
+        <div class="text-center mb-8">
+          <i class="fas fa-chart-pie text-5xl gradient-text mb-4"></i>
+          <h2 class="text-3xl md:text-5xl font-bold mb-4 gradient-text">Allocation Plan</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <div class="feature-card glass-effect rounded-xl p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-semibold">NFT Holders</h3>
+                <span class="text-2xl font-bold gradient-text">40%</span>
+              </div>
+              <p class="text-gray-400">Rewarding our community and early supporters</p>
+            </div>
+            <div class="feature-card glass-effect rounded-xl p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-semibold">Investors</h3>
+                <span class="text-2xl font-bold gradient-text">30%</span>
+              </div>
+              <p class="text-gray-400">Those who believe in and fund the vision</p>
+            </div>
+          </div>
+          <div class="space-y-6">
+            <div class="feature-card glass-effect rounded-xl p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-semibold">Team</h3>
+                <span class="text-2xl font-bold gradient-text">20%</span>
+              </div>
+              <p class="text-gray-400">Dedicated creators bringing the project to life</p>
+            </div>
+            <div class="feature-card glass-effect rounded-xl p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-semibold">Growth & Expansion</h3>
+                <span class="text-2xl font-bold gradient-text">10%</span>
+              </div>
+              <p class="text-gray-400">Future development and scaling opportunities</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide">
+      <div class="glass-effect rounded-3xl p-8 md:p-12">
+        <div class="text-center mb-8">
+          <i class="fas fa-map-marked-alt text-5xl gradient-text mb-4"></i>
+          <h2 class="text-3xl md:text-5xl font-bold mb-4 gradient-text">Project Roadmap</h2>
+        </div>
+        <div class="space-y-8 max-w-3xl mx-auto">
+          <div class="feature-card glass-effect rounded-xl p-6 flex items-start">
+            <div class="bg-gradient-to-br from-purple-600 to-blue-500 rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+              <span class="font-bold text-white">Q1</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Artwork Creation & Smart Contracts</h3>
+              <p class="text-gray-400">Developing the core artwork and implementing secure smart contracts</p>
+            </div>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-6 flex items-start">
+            <div class="bg-gradient-to-br from-blue-500 to-green-500 rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+              <span class="font-bold text-white">Q2</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">NFT Mint Launch</h3>
+              <p class="text-gray-400">Public launch and initial minting phase for the collection</p>
+            </div>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-6 flex items-start">
+            <div class="bg-gradient-to-br from-green-500 to-yellow-500 rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+              <span class="font-bold text-white">Q3</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Community Expansion</h3>
+              <p class="text-gray-400">Growing our community and establishing collaborations</p>
+            </div>
+          </div>
+          <div class="feature-card glass-effect rounded-xl p-6 flex items-start">
+            <div class="bg-gradient-to-br from-yellow-500 to-red-500 rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+              <span class="font-bold text-white">Q4</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">Market Growth & Sustainability</h3>
+              <p class="text-gray-400">Secondary market development and long-term project sustainability</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide">
+      <div class="glass-effect rounded-3xl p-8 md:p-12 text-center">
+        <div class="mb-8 pulse-animation">
+          <i class="fas fa-rocket text-6xl gradient-text"></i>
+        </div>
+        <h2 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">Join the Journey</h2>
+        <div class="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed max-w-2xl mx-auto">
+          This is not just funding an NFT.<br>
+          This is <span class="gradient-text font-semibold">investing in a dream, in art, and in a future brand</span>.
+        </div>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="https://t.me/XPdog" target="_blank" 
+             class="nav-btn px-8 py-4 rounded-2xl text-lg font-semibold flex items-center justify-center">
+            <i class="fab fa-telegram mr-3 text-xl"></i>
+            Contact Me on Telegram
+          </a>
+          <button onclick="showSlide(0)" class="glass-effect px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-gray-800 transition flex items-center justify-center">
+            <i class="fas fa-redo mr-3"></i>
+            View Again
+          </button>
+        </div>
+        <div class="mt-12 text-gray-500 text-sm">
+          <p>Thank you for your time and consideration</p>
+          <p class="mt-2">- Jack, Artist & Visionary</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="donation-section">
-    <h2>Make a Donation</h2>
-    <p>Goal: <strong>5 ETH</strong> | Raised: <strong id="raised">0 ETH</strong></p>
-    
-    <div id="walletInfo" class="wallet-info" style="display: none;">
-      <strong>Wallet Connected:</strong> <span id="walletAddress"></span>
-    </div>
-    
-    <input type="number" id="amount" placeholder="Amount (ETH)" min="0" step="0.01" disabled />
-    <br />
-    
-    <button id="connectButton" onclick="connectWallet()">Connect Farcaster Wallet</button>
-    <button id="donateButton" onclick="donate()" disabled>Donate via Wallet</button>
-    
-    <div class="progress">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
-    
-    <div id="statusMessage" class="status-message" style="display: none;"></div>
-    
-    <div class="farcaster-badge">
-      <div class="farcaster-icon"></div>
-      <span>Farcaster Mini App & Frame Compatible</span>
-    </div>
+  <!-- Navigation Buttons -->
+  <div class="mt-8 flex gap-4">
+    <button onclick="prevSlide()" class="glass-effect px-6 py-3 rounded-xl hover:bg-gray-800 transition flex items-center">
+      <i class="fas fa-arrow-left mr-2"></i>
+      Previous
+    </button>
+    <button onclick="nextSlide()" class="nav-btn px-6 py-3 rounded-xl flex items-center">
+      Next
+      <i class="fas fa-arrow-right ml-2"></i>
+    </button>
   </div>
 
-  <div class="footer-links">
-    <a href="https://farbounty.github.io/terms.html">Terms of Service</a>
-    <a href="https://farbounty.github.io/privacy.html">Privacy Policy</a>
-    <a href="https://farbounty.github.io/farcaster.json">Farcaster App</a>
-    <div style="margin-top: 10px; font-size: 12px; color: #999;">
-      Bounty Mini App - Built for Farcaster
-    </div>
+  <!-- Slide Indicators -->
+  <div class="flex space-x-2 mt-6">
+    <span class="slide-indicator w-3 h-3 rounded-full bg-gray-700 cursor-pointer" data-slide="0"></span>
+    <span class="slide-indicator w-3 h-3 rounded-full bg-gray-700 cursor-pointer" data-slide="1"></span>
+    <span class="slide-indicator w-3 h-3 rounded-full bg-gray-700 cursor-pointer" data-slide="2"></span>
+    <span class="slide-indicator w-3 h-3 rounded-full bg-gray-700 cursor-pointer" data-slide="3"></span>
+    <span class="slide-indicator w-3 h-3 rounded-full bg-gray-700 cursor-pointer" data-slide="4"></span>
+    <span class="slide-indicator w-3 h-3 rounded-full bg-gray-700 cursor-pointer" data-slide="5"></span>
+    <span class="slide-indicator w-3 h-3 rounded-full bg-gray-700 cursor-pointer" data-slide="6"></span>
   </div>
 
   <script>
-    const GOAL = 5; // ETH goal
-    let raised = 0;
-    const donationAddress = "0x3d393197C4F49352e240fF718927080C02a8e1b1"; // Receiving address
-    let connectedAccount = null;
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
+    const slideTitles = [
+      "Introduction",
+      "The Vision",
+      "Why This Matters",
+      "Fundraising Goal",
+      "Allocation Plan",
+      "Project Roadmap",
+      "Join the Journey"
+    ];
 
-    // Check if Farcaster wallet is available
-    function isFarcasterWalletAvailable() {
-      return !!(window.farcaster && window.farcaster.wallet);
-    }
-
-    // Check if regular Ethereum provider is available (fallback)
-    function isEthereumAvailable() {
-      return !!(window.ethereum);
-    }
-
-    // Connect to Wallet
-    async function connectWallet() {
-      const connectButton = document.getElementById('connectButton');
-      const donateButton = document.getElementById('donateButton');
-      const amountInput = document.getElementById('amount');
-      const walletInfo = document.getElementById('walletInfo');
-      const walletAddress = document.getElementById('walletAddress');
-
-      // Try Farcaster wallet first, then fallback to regular Ethereum
-      let walletProvider = null;
-      let walletType = '';
-
-      if (isFarcasterWalletAvailable()) {
-        walletProvider = window.farcaster.wallet;
-        walletType = 'farcaster';
-      } else if (isEthereumAvailable()) {
-        walletProvider = window.ethereum;
-        walletType = 'ethereum';
-      } else {
-        showStatus('No wallet detected. Please use Farcaster app or install MetaMask.', 'error');
-        return;
-      }
-
-      try {
-        showStatus('Connecting to wallet...', 'info');
-        connectButton.disabled = true;
-        connectButton.textContent = 'Connecting...';
-
-        // Request account access
-        const accounts = await walletProvider.request({
-          method: 'eth_requestAccounts'
-        });
-
-        if (accounts && accounts.length > 0) {
-          connectedAccount = accounts[0];
-          
-          // Update UI
-          walletAddress.textContent = `${connectedAccount.substring(0, 6)}...${connectedAccount.substring(38)}`;
-          walletInfo.style.display = 'block';
-          connectButton.textContent = 'Connected ✓';
-          connectButton.classList.add('connected');
-          connectButton.disabled = true;
-          
-          // Enable donation inputs
-          amountInput.disabled = false;
-          donateButton.disabled = false;
-          
-          showStatus(`${walletType === 'farcaster' ? 'Farcaster' : 'Ethereum'} wallet connected successfully!`, 'success');
-        } else {
-          throw new Error('No accounts found');
-        }
-      } catch (error) {
-        console.error('Wallet connection error:', error);
-        showStatus('Failed to connect wallet: ' + error.message, 'error');
-        connectButton.disabled = false;
-        connectButton.textContent = 'Connect Wallet';
-      }
-    }
-
-    // Donate function
-    async function donate() {
-      const amountInput = document.getElementById('amount');
-      const donateButton = document.getElementById('donateButton');
-      const amount = amountInput.value;
-
-      if (!connectedAccount) {
-        showStatus('Please connect your wallet first', 'error');
-        return;
-      }
-
-      if (!amount || amount <= 0) {
-        showStatus('Please enter a valid donation amount', 'error');
-        return;
-      }
-
-      // Determine wallet provider
-      const walletProvider = isFarcasterWalletAvailable() ? window.farcaster.wallet : window.ethereum;
-
-      try {
-        showStatus('Processing donation...', 'info');
-        donateButton.disabled = true;
-        donateButton.textContent = 'Processing...';
-
-        // Convert ETH to Wei
-        const valueWei = BigInt(Math.floor(parseFloat(amount) * 1e18)).toString();
-
-        let tx;
-        if (isFarcasterWalletAvailable()) {
-          // Farcaster wallet
-          tx = await walletProvider.sendTransaction({
-            to: donationAddress,
-            value: valueWei,
-            from: connectedAccount
-          });
-        } else {
-          // Regular Ethereum wallet
-          tx = await walletProvider.request({
-            method: 'eth_sendTransaction',
-            params: [{
-              to: donationAddress,
-              from: connectedAccount,
-              value: valueWei,
-            }]
-          });
-        }
-
-        if (tx?.hash) {
-          // Update progress
-          raised += parseFloat(amount);
-          document.getElementById('raised').innerText = raised.toFixed(2) + ' ETH';
-          document.getElementById('progress-bar').style.width = (raised / GOAL * 100) + '%';
-          
-          showStatus(`Donation successful! Transaction Hash: ${tx.hash}`, 'success');
-          
-          // Reset form
-          amountInput.value = '';
-          donateButton.disabled = true;
-          donateButton.textContent = 'Donate via Wallet';
-        } else {
-          throw new Error('Transaction failed or was cancelled');
-        }
-      } catch (error) {
-        console.error('Donation error:', error);
-        showStatus('Donation failed: ' + error.message, 'error');
-        donateButton.disabled = false;
-        donateButton.textContent = 'Donate via Wallet';
-      }
-    }
-
-    // Show status messages
-    function showStatus(message, type) {
-      const statusMessage = document.getElementById('statusMessage');
-      statusMessage.textContent = message;
-      statusMessage.className = 'status-message';
+    function updateProgress() {
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      document.getElementById('progress-bar').style.width = `${progress}%`;
+      document.getElementById('current-slide').textContent = currentSlide + 1;
+      document.getElementById('total-slides').textContent = totalSlides;
+      document.getElementById('slide-title').textContent = slideTitles[currentSlide];
       
-      if (type === 'success') {
-        statusMessage.classList.add('status-success');
-      } else if (type === 'error') {
-        statusMessage.classList.add('status-error');
-      } else if (type === 'info') {
-        statusMessage.classList.add('status-info');
-      }
-      
-      statusMessage.style.display = 'block';
-      
-      // Auto-hide success messages after 8 seconds
-      if (type === 'success') {
-        setTimeout(() => {
-          statusMessage.style.display = 'none';
-        }, 8000);
-      }
+      // Update indicators
+      document.querySelectorAll('.slide-indicator').forEach((indicator, index) => {
+        if (index === currentSlide) {
+          indicator.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        } else {
+          indicator.style.background = '#374151';
+        }
+      });
+    }
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        if (i === index) {
+          slide.classList.add("active");
+        }
+      });
+      currentSlide = index;
+      updateProgress();
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(currentSlide);
     }
 
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
-      const amountInput = document.getElementById('amount');
-      const donateButton = document.getElementById('donateButton');
+      updateProgress();
       
-      // Enable/disable donate button based on input
-      amountInput.addEventListener('input', function() {
-        if (connectedAccount && amountInput.value && amountInput.value > 0) {
-          donateButton.disabled = false;
-        } else {
-          donateButton.disabled = true;
-        }
+      // Add click events to slide indicators
+      document.querySelectorAll('.slide-indicator').forEach(indicator => {
+        indicator.addEventListener('click', function() {
+          const slideIndex = parseInt(this.getAttribute('data-slide'));
+          showSlide(slideIndex);
+        });
       });
-
-      // Show appropriate message based on environment
-      if (!isFarcasterWalletAvailable() && !isEthereumAvailable()) {
-        showStatus('Please open this in Farcaster app or install MetaMask to connect your wallet', 'info');
-      }
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
+      });
     });
   </script>
 </body>
-</html>
+      </html>
