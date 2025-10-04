@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BTC GAME</title>
+    <title>Farcaster BTC Trading - Real Money Game</title>
     <style>
         :root {
             --primary: #8B5CF6;
@@ -396,12 +396,34 @@
         }
         
         .rules-list li {
-            padding: 8px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
         .rules-list li:last-child {
             border-bottom: none;
+        }
+        
+        .rule-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .rule-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .rule-text {
+            flex: 1;
         }
     </style>
 </head>
@@ -466,12 +488,42 @@
                 <div class="card game-rules">
                     <h3 style="margin-bottom: 16px;">How It Works</h3>
                     <ul class="rules-list">
-                        <li>💰 Bet minimum $1 USDC on Base network</li>
-                        <li>⏰ 14-hour trading window for each bet</li>
-                        <li>🎯 Predict if BTC price will go UP or DOWN</li>
-                        <li>🔥 Win 10x your bet if correct</li>
-                        <li>🔒 Funds secured by smart contract</li>
-                        <li>⚡ Real-time price updates from CoinGecko</li>
+                        <li>
+                            <div class="rule-icon">
+                                <img src="https://iili.io/KWLC99e.png" alt="Money Icon">
+                            </div>
+                            <div class="rule-text">Bet minimum $1 USDC on Base network</div>
+                        </li>
+                        <li>
+                            <div class="rule-icon">
+                                <img src="https://iili.io/KWLqSku.png" alt="Clock Icon">
+                            </div>
+                            <div class="rule-text">14-hour trading window for each bet</div>
+                        </li>
+                        <li>
+                            <div class="rule-icon">
+                                <img src="https://iili.io/KWLqUmb.png" alt="Target Icon">
+                            </div>
+                            <div class="rule-text">Predict if BTC price will go UP or DOWN</div>
+                        </li>
+                        <li>
+                            <div class="rule-icon">
+                                <img src="https://iili.io/KWLq87e.png" alt="Fire Icon">
+                            </div>
+                            <div class="rule-text">Win 10x your bet if correct</div>
+                        </li>
+                        <li>
+                            <div class="rule-icon">
+                                <img src="https://iili.io/KWLqer7.png" alt="Shield Icon">
+                            </div>
+                            <div class="rule-text">Funds secured by smart contract</div>
+                        </li>
+                        <li>
+                            <div class="rule-icon">
+                                <img src="https://iili.io/KWLq6LQ.png" alt="Lightning Icon">
+                            </div>
+                            <div class="rule-text">Real-time price updates from CoinGecko</div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -890,4 +942,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
