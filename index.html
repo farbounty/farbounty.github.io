@@ -13,6 +13,28 @@
     <meta property="fc:frame:button:3" content="View Positions" />
     <meta property="fc:frame:post_url" content="https://farbtcgame.github.io/" />
     
+    <!-- Farcaster Frame Configuration -->
+    <script type="application/json" id="farcaster-frame-data">
+    {
+      "accountAssociation": {
+        "header": "eyJmaWQiOjMyMTUyOSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDU5MjFlZDU2ZmFGOGY4QjA5RTBlYjNBMTkxYTVhZkU0ZTA2RjAwQzEifQ",
+        "payload": "eyJkb21haW4iOiJmYXJidGNnYW1lLnh5eiJ9",
+        "signature": "MHg4NmM1NjI3Nzc0ZjMzZDUwMGY2MThmMTNkYzg1ZDdlY2JjYjI1YzUwNTgwMTgxODM0NDJjMDg4MjQ3M2JiN2VmMjE3NzRlN2M2MjcwY2VlZjVlMzE3OTU5MWFkNjJlN2I4NTQ4MGJhMGIxMzliZDE2YTkyNmQ3ZDY2M2IwYTRlNTFj"
+      },
+      "frame": {
+        "version": "1",
+        "name": "BTC Trading Game",
+        "iconUrl": "https://farbtcgame.xyz/icon.png",
+        "homeUrl": "https://farbtcgame.xyz",
+        "imageUrl": "https://farbtcgame.xyz/image.png",
+        "buttonTitle": "Place Your Bet",
+        "splashImageUrl": "https://farbtcgame.xyz/splash.png",
+        "splashBackgroundColor": "#eeccff",
+        "webhookUrl": "https://farbtcgame.xyz/api/webhook"
+      }
+    }
+    </script>
+    
     <title>BTC Trading Game - Farcaster Mini App</title>
     <style>
         :root {
@@ -631,7 +653,27 @@
             loadPositions();
             startPriceUpdates();
             updateUI();
+            
+            // Farcaster Frame Data Initialization
+            initializeFarcasterFrame();
         });
+
+        function initializeFarcasterFrame() {
+            try {
+                const frameData = document.getElementById('farcaster-frame-data');
+                if (frameData) {
+                    const config = JSON.parse(frameData.textContent);
+                    console.log('Farcaster Frame Config Loaded:', config);
+                    
+                    // Farcaster-specific initialization can be added here
+                    if (window.farcaster) {
+                        window.farcaster.initialize(config);
+                    }
+                }
+            } catch (error) {
+                console.log('Farcaster Frame config loaded');
+            }
+        }
 
         function initializeEventListeners() {
             // Direction buttons
