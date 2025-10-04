@@ -456,7 +456,7 @@
                         <div class="price-change positive" id="priceChange">+0.00%</div>
                     </div>
                     <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.9rem;">
-                        <div>Updated: <span id="updateTime">--:--:--</span></div>
+                        <div>Updated: <span id="updateTime">--:--:-- UTC</span></div>
                         <div>24h High: <span id="highPrice">$--</span></div>
                         <div>24h Low: <span id="lowPrice">$--</span></div>
                     </div>
@@ -919,7 +919,12 @@
             changeElement.textContent = `${state.btcChange >= 0 ? '+' : ''}${state.btcChange.toFixed(2)}%`;
             changeElement.className = `price-change ${state.btcChange >= 0 ? 'positive' : 'negative'}`;
             
-            elements.updateTime.textContent = new Date().toLocaleTimeString();
+            // UTC Time display
+            const now = new Date();
+            const utcTime = now.getUTCHours().toString().padStart(2, '0') + ':' +
+                           now.getUTCMinutes().toString().padStart(2, '0') + ':' +
+                           now.getUTCSeconds().toString().padStart(2, '0') + ' UTC';
+            elements.updateTime.textContent = utcTime;
             
             // For demo purposes, calculate high/low based on current price
             const high = state.btcPrice * (1 + Math.abs(state.btcChange) / 100);
@@ -952,4 +957,4 @@
         });
     </script>
 </body>
-    </html>
+</html>
